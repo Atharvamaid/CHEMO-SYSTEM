@@ -1,0 +1,47 @@
+{% extends 'supplierauth/base.html' %}
+{% load static %}
+{% block content %}
+
+                <div class="container border mt-5 pt-2"  style="display : flex; flex-direction: column; background-color : #f2f2f2;">
+                    <h3>{{ name1 }}</h3>
+                    <div class="" id="msgcontent">
+
+                            {% if chats %}
+                                {% for i in chats.each %}
+                                    <div class='mt-2 mb-2 '><div class='border mr-auto bg-light p-2' style='width : fit-content; border-radius : 15px;'><h5 >
+                                        {{ i.val.content }}
+                                    </h5></div></div>
+                                {% endfor %}
+                            {% else %}
+
+                            {% endif %}
+
+
+                            {% for i in mychats.each %}
+                                <div class='mt-2 mb-2 '><div class='border ml-auto bg-primary text-white p-2' style='width : fit-content; border-radius : 15px;'><h5 >
+                                    {{ i.val.content }}
+                                </h5></div></div>
+                            {% endfor %}
+
+                    </div>
+
+
+
+                </div>
+                <div class="container mt-2">
+
+                        <form method="POST" action="{% url 'message' name1|slugify %}"  id="msgform">
+                            {% csrf_token %}
+                            <div class="row">
+                        <div class="col-md-10 mt-2">
+                            <input class="form-control" placeholder="Enter Message" id="msg" name="message" type="text" required>
+                        </div>
+                        <div class="col-md-2 mt-2">
+                            <button id="msgbtn" class="btn btn-block btn-primary">Send Message</button>
+                        </div>
+                            </div>
+                        </form>
+
+                </div>
+
+{% endblock content %}

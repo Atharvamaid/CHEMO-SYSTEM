@@ -1,0 +1,115 @@
+{% extends 'hospitalauth/base.html' %}
+{% load static %}
+
+{% block cont %}
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-6 pl-5">
+            <img class="signupimage" src="{% static 'hospitalauth/signup.jpg' %}" style="max-width : 100%;">
+            </div>
+            <div class="col-md-6 mt-2">
+                {% if messages %}
+                    {% for i in messages %}
+                        <div class="alert alert-{{ i.tags }}">
+                            {{ i }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+               <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Sign-Up as Hospital</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sign-Up as Supplier</a>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active pt-2 pl-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <form class="signup pr-5" method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Create Hospital Account</legend>
+                        <div class="form-group">
+                            <label for="hosname">Hospital Name : </label>
+                            <input type="text" pattern="^[A-Za-z -]+$" title="Must be a valid Hospital name"  class="form-control" id="hosname" name="hosname" placeholder="Enter hospital name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address : </label>
+                            <input type="text" class="form-control" title="Must be a valid address " pattern="^[A-Za-z0-9, -]+$" id="address" name="address" placeholder="Enter Address " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City : </label>
+                            <input type="text" class="form-control" title="Must be a valid city name" pattern="^[A-Za-z -]+$" id="city" name="city" placeholder="Enter City " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dist">District : </label>
+                            <input type="text" class="form-control" title="Must be a valid District name" pattern="^[A-Za-z -]+$" id="dist" name="dist" placeholder="Enter District " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email : </label>
+                            <input type="email" class="form-control" title="Must be a valid email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" name="email" placeholder="Enter email" required>
+                        </div>
+                       <div class="form-group">
+                            <label for="pass">Password : </label>
+                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" id="pass" name="pass" placeholder="Enter password" required>
+                           <small>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="confpass">Confirm Password : </label>
+                            <input type="password" class="form-control" id="confpass" name="confpass" placeholder="Re-enter password" required>
+                            <div class="registrationFormAlert" style="color:red;" id="CheckPasswordMatch"></div>
+                        </div>
+                    </fieldset>
+                    <div class="">
+                        <button class="btn btn-primary" type="submit" style="width : 100px">Sign Up</button>
+                    </div>
+                    <small >Already had an account ? <a href="{% url 'login' %}">Login</a></small>
+                </form>
+                  </div>
+                  <div class="tab-pane fade pt-2 pl-2" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      <form class="signup pr-5" method="POST" action="{% url 'supplier_signup' %}">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Create Supplier Account</legend>
+                        <div class="form-group">
+                            <label for="supname">Organization Name : </label>
+                            <input type="text" class="form-control" title="Must be a valid name" pattern="^[A-Za-z -]+$" id="supname" name="supname" placeholder="Enter organization name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="supaddress">Address : </label>
+                            <input type="text" class="form-control" title="Must be a valid address" pattern="^[A-Za-z0-9, -]+$"  id="supaddress" name="supaddress" placeholder="Enter Address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="supcity">City : </label>
+                            <input type="text" class="form-control" title="must be a valid city" pattern="^[A-Za-z -]+$" id="supcity" name="supcity" placeholder="Enter City" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="supdist">District : </label>
+                            <input type="text" class="form-control" title="Must be a valid district" pattern="^[A-Za-z -]+$" id="supdist" name="supdist" placeholder="Enter District" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="supemail">Email : </label>
+                            <input type="email" class="form-control" title="Must be a valid email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="supemail" name="supemail" placeholder="Enter email" required>
+                        </div>
+                       <div class="form-group">
+                            <label for="suppass">Password : </label>
+                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" id="suppass" name="suppass" placeholder="Enter password" required>
+                                                      <small>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="supconfpass">Confirm Password : </label>
+                            <input type="password" class="form-control" id="supconfpass" name="supconfpass" placeholder="Re-enter password" required>
+                        </div>
+                    </fieldset>
+                    <div class="">
+                        <button class="btn btn-primary" type="submit" style="width : 100px">Sign Up</button>
+                    </div>
+                    <small >Already had an account ? <a href="{% url 'login' %}">Login</a></small>
+                </form>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock cont %}

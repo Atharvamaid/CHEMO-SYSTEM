@@ -1,0 +1,58 @@
+{% extends 'hospitalauth/base.html' %}
+{% load static %}
+{% block content %}
+
+
+                    <div class="container mt-4">
+                        {% if messages %}
+                            {% for i in messages %}
+                                            <div class="alert alert-{{ i.tags }}">
+                                                {{ i }}
+                                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form method="POST" class="border p-3 rounded bg-light">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>Place Order for supplies - {{ supplier.val.Supplier_Name }}</legend>
+                                <div class="row">
+                                    {% for i,j in supplier.val.available_supplies.items %}
+                                        {% if j == 'yes' %}
+                                            <div class="col-md-3">
+                                            <div class="card">
+                                                <img src="{% static 'hospitalauth/' %}{{i}}.JPG" style="max-width:100%" class="card-img-top">
+                                                <div class="card-body">
+                                                    <h5  class="card-title">{{ i }}</h5>
+                                                    <br>
+                                                    <div class="form-group">
+                                                          <label for="sel1">Enter Value:</label>
+                                                          <select class="form-control" id="sel1" name="{{i}}" style="width:76%;">
+                                                            <option value="">Select quantity</option>
+                                                              <option value="1">1</option>
+                                                              <option value="2">2</option>
+                                                              <option value="3">3</option>
+                                                              <option value="4">4</option>
+                                                              <option value="5">5</option>
+                                                              <option value="6">6</option>
+                                                              <option value="7">7</option>
+                                                              <option value="8">8</option>
+                                                              <option value="9">9</option>
+                                                              <option value="10">10</option>
+                                                          </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary ">Place Order</button>
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+
+{% endblock %}

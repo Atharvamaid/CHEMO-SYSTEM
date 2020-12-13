@@ -1,0 +1,33 @@
+{% extends 'hospitalauth/base.html' %}
+{% block content %}
+    <div class="container mt-4">
+        {% if messages %}
+                    {% for i in messages %}
+                        <div class="alert alert-{{ i.tags }}">
+                            {{ i }}
+                        </div>
+                    {% endfor %}
+        {% endif %}
+        <h3 class="mb-4">My Orders :-</h3>
+        <div class="row">
+        {% for i in myorders.each %}
+            <div class="col-md-4">
+                <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Order from - {{ i.key }}</h5>
+                    <i class="card-text mb-2">required supplies - </i>
+                    {% for j,k in i.val.items %}
+                        {% if j != 'order_status' %}
+                            <p>{{ j }} -
+                            {{ k }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <p>Order Status - {{ i.val.order_status }}</p>
+                    <a href="{% url 'chat' i.key|slugify %}" class="btn border requestbtn text-white btn-light" style="background-color:#1979e6;">Contact</a>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

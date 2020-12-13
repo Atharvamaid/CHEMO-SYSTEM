@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'hospitalauth/default1.ico' %}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Covid Health and Environment Monitoring System</title>
+    <style>
+        body{
+            font-family: 'Josefin Sans', sans-serif;
+            }
+        .navbar-nav a{
+
+        }
+        .myDiv{
+
+            z-index: 1;
+            opacity : 0.75;
+        }
+
+        .signbtn:hover{
+        background-color : #1565c0 !important;
+        }
+        @media screen and (max-width : 992px){
+                .content{
+                height : 100% !important;
+                width : 100%;
+                overflow-x : hidden;
+
+                }
+                .content h1{
+                    font-size : 50px;
+                }
+                .heading-title{
+                font-size:50px !important;
+                }
+                .heading-text{
+                font-size:30px !important;
+                }
+        }
+        @media screen and (max-width : 502px){
+                .content{
+                height : 100% !important;
+                width : 100%;
+                overflow-x : hidden;
+
+                }
+                .content h1{
+                    font-size : 30px;
+                }
+                .content h2{
+                    font-size : 25px;
+                }
+
+
+        }
+        @media screen and (max-width : 802px){
+                .ppe{
+                font-size : 20px;
+                }
+
+
+        }
+        @media screen and (min-width : 1170px){
+            .signupimage{
+                position : fixed;
+            }
+
+        }
+
+        .requestbtn{
+        transition : 0.1s ease;
+        }
+        .editbtn{
+        transition : 0.1s ease;
+        }
+        .requestbtn:hover{
+            background-color : #0d47a1 !important;
+        }
+        .editbtn:hover{
+            background-color : #1565c0;
+            color : #fff !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top navbar-light" style="background-color : #f2f2f2;">
+
+        <a class="navbar-brand mr-3 " href="{% url 'Home' %}" style=""><img class="" style="max-width:100px;" src="{% static 'hospitalauth/cover12.png' %}"></a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navres">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse " id="navres">
+        <ul class="navbar-nav ml-3">
+
+
+            {% if user.is_authenticated %}
+                <a class="nav-item nav-link mx-3" href="{% url 'dashboard' %}">Dashboard</a>
+            {% else %}
+                <a class="nav-item nav-link mx-3" href="{% url 'Home' %}">Home</a>
+                <a class="nav-item nav-link mx-3" href="#functional">About</a>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <form class="form-inline" method="POST" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <i class="fa fa-search fa-lg" style="color : #1565c0;"></i><input class="form-control mx-2 mr-sm-2" type="text" name="q" placeholder="Search Supplier" required>
+                    <button class="btn text-white mr-3" style="background-color : #1565c0;" type="submit">Search</button>
+                </form>
+                <a class="nav-item nav-link mx-4" href="{% url 'trackcases' %}">Track Cases</a>
+                <li class="nav-item dropdown   dropleft">
+                    <a class="nav-link active" id="navdrop" style="cursor : pointer;" data-toggle="dropdown"><i class="fas fa-lg fa-user-alt"></i></a>
+                    <div class="dropdown-menu">
+
+                        <a class="dropdown-item" href="#">Edit Info</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout </a>
+                    </div>
+                </li>
+            {% else %}
+                <a class="btn signbtn pt-2 text-white mx-4" href="{% url 'signup' %}" style="background-color : #1979e6; border-radius: 50px;">Create Account</a>
+                <a class=" nav-item nav-link mx-3" style=" color : #1565c0; font-size : 17px;" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        {% if user.is_authenticated %}
+            <div class="col-md-2 pt-2 mt-4 mb-2 bg-light border rounded" style="display : flex; flex-direction : column; align-items : center; height:85vh !important">
+                    <img class="my-2" src="{% static 'hospitalauth/account.png' %}" width="100px" height="100px">
+                    <h5 class="my-3 text-center"><i class="far fa-hospital fa-lg"></i>  {{ name.val }}</h5>
+                    <h5 class="my-3 text-center"><i class="fas fa-map-marker-alt fa-lg"></i>   {{ address.val }}</h5>
+                    <h5 class="my-3 text-center"><i class="fas fa-city fa-lg"></i>  {{ city.val }}</h5>
+
+                    <br>
+                    <button class="btn requestbtn btn-lg mb-2 text-white" onclick="location.href={% url 'request_supplies' %}" style="background-color : #1565c0">Request Supplies</button>
+                    <br>
+                    <button class="btn editbtn btn-lg mb-2" onclick="location.href={% url 'myorders' %}" style="border : 2px solid #0d47a1; color : #0d47a1">My Orders</button>
+                    <br>
+
+                </div>
+            <div class="col-md-10">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        {% else %}
+                    {% block cont %}
+                    {% endblock %}
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#msgbtn").click(function(e){
+        e.preventDefault();
+        var msg = $("#msg").val()
+
+        $("#msgcontent").append("<div class='mt-2 mb-2 '><div class='border ml-auto bg-primary text-white p-2' style='width : fit-content; border-radius : 15px;'><h5 >" + msg + "</h5></div></div>");
+
+        $.ajax({
+            url : $("#msgform").attr("action"),
+            type : "POST",
+            data : $("#msgform").serialize(),
+
+            success : function(response){
+
+            console.log(response);
+
+            }
+            });
+
+            $("#msg").val("");
+
+
+
+      });
+
+
+      $(".editvalue").click(function(e){
+        e.preventDefault();
+        $(this).removeClass('editvalue');
+        $(this).toggleClass('update');
+        if($(this).text()==="Save Changes"){
+        $(this).text('Edit Values');
+        $(this).css({"background-color" : "transparent", "border" : "1px solid #1565c0", "color" : "#1565c0"})
+        for(var i = 1; i<=27;i++){
+            var n = i.toString();
+            var id = '#' + n;
+            var cls = '.' + n;
+            var x = $(id).val();
+            $(id).attr("type", "hidden");
+            if (x===""){
+            x=0;
+            }
+            $(cls).append(x);
+            }
+
+            $.ajax({
+            url : $("#form").attr("action"),
+            type : "POST",
+            data : $("#form").serialize(),
+
+            success : function(response){
+
+            console.log(response);
+
+            }
+            });
+        }
+        else{
+            for(var i = 1; i<=27;i++){
+            var n = i.toString();
+            var id = '#' + n;
+            var cls = '.'+n;
+            var txt = $(cls).text();
+
+            $(id).attr({"type" : "number"});
+            $(id).val(txt);
+            $(id).css("width" ,"50px");
+            $(cls).html($(id));
+            console.log('ji');
+            }
+            $(this).text('Save Changes');
+            $(this).css({"background-color" : "#1565c0", "color" : "white"});
+        }
+
+        console.log("loop ended");
+
+      });
+        $("#confpass").keyup(checkPasswordMatch);
+    function checkPasswordMatch() {
+        var password = $("#pass").val();
+        var confirmPassword = $("#confpass").val();
+        if (password != confirmPassword)
+            $("#CheckPasswordMatch").html("Passwords does not match!");
+        else
+            $("#CheckPasswordMatch").html("Passwords match.");
+            $("#CheckPasswordMatch").css("color", "green");
+
+
+    }
+});
+
+
+</script>
+</body>
+</html>

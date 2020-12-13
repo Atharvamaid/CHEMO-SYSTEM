@@ -1,0 +1,129 @@
+{% extends 'supplierauth/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {% if messages %}
+                    {% for i in messages %}
+                        <div class="alert alert-{{ i.tags }}">
+                            {{ i }}
+                        </div>
+                    {% endfor %}
+        {% endif %}
+        <div class="" style="display:flex; justify-content:space-between;">
+            <h2 class="">Available Supplies</h2>
+
+            <button type="button" class="btn text-white requestbtn" style="background-color : #1565c0; border-radius: 50px;" data-toggle="modal" data-target="#myModal">
+              Add Supplies <i class="fas fa-plus"></i>
+            </button>
+            <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form class="form" method="POST" >
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Supplies</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+            <form class="form" method="POST">
+                {% csrf_token %}
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="Beds">Beds
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="ventilators">Ventilators
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="face_shield" >Face Shields
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="surgical_masks" >Surgical Masks
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="respirators" >Respirators
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="isolation_gowns" >Isolation Gowns
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="checks[]" class="form-check-input" value="gloves" >Gloves
+                  </label>
+                </div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Add Supplies</button>
+      </div>
+</form>
+    </div>
+  </div>
+</div>
+
+        </div>
+        <div class=" mt-3 row">
+            {% if availablesupplies %}
+                {% for i in availablesupplies.each %}
+
+                    {% if i.val == 'yes' %}
+                        <div class="col-md-3">
+                            <div class="card bg-light my-2">
+                                <div class="card-body">
+
+                                    <img src="{% static 'hospitalauth/' %}{{i.key}}.JPG" style="max-width:100%" class="card-img-top">
+                                    <br>
+                                    <br>
+                                    <h5 class="card-title text-center">{{ i.key }}</h5>
+                                    <br>
+                                    <button class="btn text-white mx-1 float-right" data-toggle="modal" data-target="#{{i.key}}" style="background-color : #1565c0; border-radius: 50px;"> <i class="fa fa-trash"></i></button>
+                                    <div class="modal" id="{{i.key}}">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                              <!-- Modal Header -->
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Are you sure you want to delete the entry</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                              </div>
+
+                                              <!-- Modal body -->
+
+                                              <!-- Modal footer -->
+                                              <div class="modal-footer">
+                                                <a href="{% url 'delete_supply' i.key %}"  class="btn btn-danger">delete</a>
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+            {% else %}
+                <p class="text-center">No supplies yet. Add your available supplies</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

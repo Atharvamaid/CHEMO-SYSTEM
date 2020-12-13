@@ -1,0 +1,46 @@
+{% extends 'supplierauth/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {% for i in messages %}
+                        <div class="alert alert-{{ i.tags }}">
+                            {{ i }}
+                        </div>
+        {% endfor %}
+        <h1>Confirmed Orders</h1>
+        {% if confirmedorders.val %}
+        <div class="row">
+
+
+                {% for i in confirmedorders.each %}
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ i.key }}
+                                </h5>
+                                {% for j,k in i.val.items %}
+                                    {% if j != 'order_status' %}
+                                        <p class="card-text">{{ j }} - {{ k }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                                <form method="POST" class="{{ i.key|slugify }}" action="{% url 'change_status' i.key|slugify %}">
+                                    {% csrf_token %}
+                                <p class="card-text" >Order Status - <span class="{{ i.key|slugify }}p">{{ i.val.order_status }}</span></p>
+                                <br>
+
+                                <button class="btn text-white change_status" id="{{ i.key|slugify }}"  style="background-color : #1565c0">Change Status</button>
+                                    <a class="btn mx-2" href="{% url 'contact' i.key|slugify %}" style="border : 1px solid #1565c0; color : #1565c0">Messages</a>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+        </div>
+        {% else %}
+                <p class="text-center text-black">No confirmed orders yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
