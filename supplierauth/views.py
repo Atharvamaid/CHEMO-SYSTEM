@@ -9,14 +9,14 @@ from time import time
 
 # Create your views here.
 config = {
-    'apiKey': "AIzaSyDWnqxooc2Auj_MB5ux8GboUzixypSQbcw",
-    'authDomain': "chemo-system.firebaseapp.com",
-    'projectId': "chemo-system",
-    'databaseURL' : 'https://chemo-system-default-rtdb.firebaseio.com/',
-    'storageBucket': "chemo-system.appspot.com",
-    'messagingSenderId': "662392512264",
-    'appId': "1:662392512264:web:e5e3f186eb49ef40db56bd",
-    'measurementId': "G-WG2HJDRFP4"
+  'apiKey': "AIzaSyDDmBnv6lOU3ANBvq0H7D8BOh-yxQVcZmI",
+  'authDomain': "local-chemo-system.firebaseapp.com",
+  'databaseURL' : 'https://local-chemo-system-default-rtdb.firebaseio.com/',
+  'projectId': "local-chemo-system",
+  'storageBucket': "local-chemo-system.appspot.com",
+  'messagingSenderId': "839736070372",
+  'appId': "1:839736070372:web:bbc24f1c631a6e1db05cf1",
+  'measurementId': "G-5B8NBJ8955"
   }
 
 firebase = pyrebase.initialize_app(config)

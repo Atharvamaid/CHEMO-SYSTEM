@@ -3,33 +3,20 @@
 {% block content %}
 
      <div class="container mt-4">
-
-            {% autoescape off %}
-              {{ plot1 }}
-            {% endautoescape %}
+         <img style="max-width:100%" src="{% static 'hospitalauth/confirmed.JPG' %}">
 
         </div>
 <div class="container mt-4">
 
-            {% autoescape off %}
-              {{ plotit }}
-            {% endautoescape %}
+    <img style="max-width:100%" src="{% static 'hospitalauth/deaths.JPG' %}">
 
         </div>
  <div class="container mt-4">
 
-        {% autoescape off %}
-          {{ plot2 }}
-        {% endautoescape %}
+    <img style="max-width:100%" src="{% static 'hospitalauth/total.JPG' %}">
 
     </div>
-    <div class="container mt-4">
 
-        {% autoescape off %}
-          {{ plot3 }}
-        {% endautoescape %}
-
-    </div>
 
     <div class="container mt-4">
         <img style="max-width:100%;" src="{% static 'hospitalauth/capture.JPG' %}">

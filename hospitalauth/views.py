@@ -6,21 +6,21 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,logout, login
 from random_username.generate import generate_username
-from .ml import df3, fig, fig1, fig2, fig3
+
 # Create your views h
 from django.contrib.auth.views import PasswordChangeView
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 
 config = {
-    'apiKey': "AIzaSyDWnqxooc2Auj_MB5ux8GboUzixypSQbcw",
-    'authDomain': "chemo-system.firebaseapp.com",
-    'projectId': "chemo-system",
-    'databaseURL' : 'https://chemo-system-default-rtdb.firebaseio.com/',
-    'storageBucket': "chemo-system.appspot.com",
-    'messagingSenderId': "662392512264",
-    'appId': "1:662392512264:web:e5e3f186eb49ef40db56bd",
-    'measurementId': "G-WG2HJDRFP4"
+  'apiKey': "AIzaSyDDmBnv6lOU3ANBvq0H7D8BOh-yxQVcZmI",
+  'authDomain': "local-chemo-system.firebaseapp.com",
+  'databaseURL' : 'https://local-chemo-system-default-rtdb.firebaseio.com/',
+  'projectId': "local-chemo-system",
+  'storageBucket': "local-chemo-system.appspot.com",
+  'messagingSenderId': "839736070372",
+  'appId': "1:839736070372:web:bbc24f1c631a6e1db05cf1",
+  'measurementId': "G-5B8NBJ8955"
   }
 
 firebase = pyrebase.initialize_app(config)
@@ -66,12 +66,9 @@ def TrackCases(request):
   name = db.child('Hospitals').child(request.user.id).child('Hospital_Name').get()
   address = db.child("Hospitals").child(request.user.id).child("Address").get()
   city = db.child('Hospitals').child(request.user.id).child("city").get()
-  plotit = plot(fig, output_type='div')
-  plot1 = plot(fig1, output_type='div')
-  plot2 = plot(fig2, output_type='div')
-  plot3 = plot(fig3, output_type='div')
 
-  return render(request, 'hospitalauth/trackcases.html', {'plotit':plotit, 'plot1':plot1, 'plot2':plot2, 'plot3':plot3, 'name': name, "address": address, 'city':city})
+
+  return render(request, 'hospitalauth/trackcases.html', {'name': name, "address": address, 'city':city})
 
 
 @login_required(login_url='login')
@@ -333,6 +330,7 @@ def place_order(request, id):
   address = db.child("Hospitals").child(request.user.id).child("Address").get()
   city = db.child('Hospitals').child(request.user.id).child("city").get()
   supplier = db.child('suppliers').child(id).get()
+  print(id)
   if request.method=='POST':
 
     for i,j in supplier.val()['available_supplies'].items():
