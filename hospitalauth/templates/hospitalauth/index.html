@@ -10,77 +10,14 @@
                 {% endfor %}
     {% endif %}
 
-    <div class="myDiv" style=" display:flex; z-index:-1; justify-content:flex-start;width:100%; align-items:center; height:570px; background-image : url('{% static 'hospitalauth/landing.jpg' %}'); background-size:cover; background-repeat:no-repeat;">
+    <div class="myDiv" style=" display:flex; z-index:-1; justify-content:flex-start;width:100%; align-items:center; height:630px; background-image : url('{% static 'hospitalauth/land.jpg' %}'); background-size:cover; background-repeat:no-repeat;">
         <div class="text-center pl-3 ml-3" style="width:49%; z-index: 2; !important">
-            <h1 class="heading-title" style="font-size:80px;;color:black; font-family: 'Josefin Sans', sans-serif; ">Covid Health and Environment Monitoring System</h1>
+            <h1 class="heading-title " style="font-size:75px;color:#d9d9d9; font-family: 'Josefin Sans', sans-serif; ">Supply management and monitoring system</h1>
             <br>
 
-            <p class="heading-text" style="font-size:30px;">A small effort to control Covid-19</p>
+            <p class="heading-text " style="font-size:30px;color:#d9d9d9;">A smarter solution to track your supplies</p>
 
         </div>
     </div>
-    <div class="container-fluid mt-5 pt-3">
-        <h2 class="text-center text-muted">A solution for every Hospital and Supplier</h2>
-        <br>
-        <div class="row mt-4" id="functional">
 
-            <div class="col-md-4" style="display:flex; justify-content:center;">
-                <div class="card" style="max-width:80%; border : none;">
-                    <img  src="{% static 'hospitalauth/supply_control.JPG' %}" style="max-width:150px;" class="card-img-top mx-auto">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Track Supplies</h4>
-                        <p class="card-text text-center">Track your current supply equipments like PPE kits, Ventilators, Beds</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 " style="display:flex; justify-content:center;">
-                     <div class="card" style="max-width:80%; border : none;">
-                    <img  src="{% static 'hospitalauth/staff.JPG' %}" style="max-width:150px;" class="card-img-top mx-auto">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Manage Staff</h4>
-                        <p class="card-text text-center">Manage your onshift and oncall staff for efficient management</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" style="display:flex; justify-content:center;">
-                 <div class="card" style="max-width:80%; border : none;">
-                    <img  src="{% static 'hospitalauth/analysis.JPG' %}" style="max-width:120px;" class="card-img-top mx-auto">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Analyse Cases</h4>
-                        <p class="card-text text-center">Analyse the rising cases to forecast future upcoming needs</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4">
-
-            <div class="col-md-4" style="display:flex; justify-content:center;">
-                <div class="card" style="max-width:80%; border : none;">
-                    <img  src="{% static 'hospitalauth/forecast.JPG' %}" style="max-width:130px;" class="card-img-top mx-auto">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Forecast Needs</h4>
-                        <p class="card-text text-center">Efficient modal which will forecast upcoming cases inorder to gauge future case burden</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 " style="display:flex; justify-content:center;">
-                     <div class="card" style="max-width:80%; border : none;">
-                    <img  src="{% static 'hospitalauth/contact.JPG' %}" style="max-width:130px;" class="card-img-top mx-auto">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Contact Supplier</h4>
-                        <p class="card-text text-center">Contact Supplier in case of emergency for ordering equipments</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" style="display:flex; justify-content:center;">
-                 <div class="card" style="max-width:80%; border : none;">
-                    <img  src="{% static 'hospitalauth/exchange.JPG' %}" style="max-width:120px;" class="card-img-top mx-auto">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Request Supplies</h4>
-                        <p class="card-text text-center">Order available supplies from suppliers effeciently whenever required</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock cont %}

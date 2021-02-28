@@ -14,7 +14,7 @@
                         <form method="POST" class="border p-3 rounded bg-light">
                             {% csrf_token %}
                             <fieldset>
-                                <legend>Place Order for supplies - {{ supplier.val.Supplier_Name }}</legend>
+                                <legend>Place Order for supplies -</legend>
                                 <div class="row">
                                     {% for i,j in supplier.val.available_supplies.items %}
                                         {% if j == 'yes' %}

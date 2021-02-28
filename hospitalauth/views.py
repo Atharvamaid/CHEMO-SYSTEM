@@ -61,44 +61,48 @@ def log_in(request):
 @login_required(login_url='login')
 def TrackCases(request):
 
-  db = firebase.database()
+  return render(request, 'hospitalauth/trackcases.html')
 
-  name = db.child('Hospitals').child(request.user.id).child('Hospital_Name').get()
-  address = db.child("Hospitals").child(request.user.id).child("Address").get()
-  city = db.child('Hospitals').child(request.user.id).child("city").get()
-
-
-  return render(request, 'hospitalauth/trackcases.html', {'name': name, "address": address, 'city':city})
+dummy = [
+  {
+    'product':"Steel",
+    'quantity': 20,
+    'date': '21 Feb 2021',
+    'price' : '50,000',
+    'shipping_status': 'shipped'
+  },
+  {
+      'product':"aluminium",
+      'quantity': 10,
+      'date': '11 Feb 2021',
+      'price' : '50,000',
+      'shipping_status': 'Delivered'
+    },
+    {
+        'product':"Steel",
+        'quantity': 30,
+        'date': '21 Feb 2021',
+        'price' : '50,000',
+        'shipping_status': 'shipped'
+      },
+]
 
 
 @login_required(login_url='login')
 def dashboard(request):
   db = firebase.database()
 
-  name = db.child('Hospitals').child(request.user.id).child('Hospital_Name').get()
-  address = db.child("Hospitals").child(request.user.id).child("Address").get()
-  city = db.child('Hospitals').child(request.user.id).child("city").get()
+  name = db.child('Vendors').child(request.user.id).child('Vendor_Name').get()
+  address = db.child("Vendors").child(request.user.id).child("Address").get()
+  city = db.child('Vendors').child(request.user.id).child("city").get()
 
-  supplies = db.child("Hospitals").child(request.user.id).child("supplies").get()
-  return render(request, 'hospitalauth/dashboard.html', {'name': name, "address": address, "supplies": supplies, 'city':city})
+  return render(request, 'hospitalauth/dashboard.html', {'name': name, "address": address,"city":city,"dummy":dummy})
 
 
 def Search(request):
-  if request.method == 'POST':
-    db = firebase.database()
 
-    name = db.child('Hospitals').child(request.user.id).child('Hospital_Name').get()
-    address = db.child("Hospitals").child(request.user.id).child("Address").get()
-    search = request.POST['q']
-    try:
-      supplier_id = User.objects.get(first_name=search).id
-      supplier = db.child("suppliers").child(supplier_id).get()
-      messages.success(request, f'results found for {search} !')
-    except User.DoesNotExist:
-      messages.warning(request, 'results not found')
 
-  return render(request, 'hospitalauth/search.html',
-                {"supplier": supplier, "name": name, "address": address, "id": supplier_id})
+  return render(request, 'hospitalauth/search.html')
 
 
 def chat(request, name):
@@ -145,57 +149,8 @@ def send_message(request, name):
   return HttpResponse('done')
 
 def CreateAccount(request):
-  dats = {
-    'inpatients': {
-      'confirmed': 0,
-      'under_observation': 0,
-      'total': 0
-    },
-    'Beds': {
-      'available': 0,
-      'occupied': 0,
-      'total': 0
-    },
-    'staff': {
-      'oncall': 0,
-      'onshift': 0,
-      'total': 0
-    },
-    'ventilators': {
-      'available': 0,
-      'in_use': 0,
-      'total': 0
-    },
-    'surgical_masks': {
-      'available': 0,
-      'in_use': 0,
-      'total': 0
-    },
-    'gloves': {
-      'small': 0,
-      'large': 0,
-      'total': 0
-    },
-    'face_shield': {
-      'available': 0,
-      'in_use': 0,
-      'total': 0
-    },
-    'isolation_gowns': {
-      'small': 0,
-      'large': 0,
-      'total': 0
-    },
-    'respirators': {
-      'N95': 0,
-      'PAPR': 0,
-      'total': 0
-    }
-
-  }
   if request.method == 'POST':
     name = request.POST['hosname']
-
     username = generate_username(1)
     email = request.POST['email']
     address = request.POST['address']
@@ -215,11 +170,10 @@ def CreateAccount(request):
                                             last_name='hospital')
             if user:
               messages.success(request, f'Account Created for {name}')
-              data = dats
               db = firebase.database()
-              db.child('Hospitals').child(user.id).set(
-                {"Hospital_Name": name, "Address": address, "city": city, 'district': district})
-              db.child("Hospitals").child(user.id).child("supplies").set(data)
+              db.child('Vendors').child(user.id).set(
+                {"Vendor_Name": name, "Address": address, "city": city, 'district': district})
+
               login(request, user)
               return redirect('dashboard')
             else:
@@ -231,21 +185,10 @@ def CreateAccount(request):
       messages.warning(request, 'Please provide valid information ! Fields must be text')
 
 
-
-
-
   return render(request, 'hospitalauth/signup.html')
 
 def create_supplier_account(request):
-  dat = {
-    'Beds' : 'No',
-    'ventilators': 'No',
-    'surgical_masks': 'No',
-    'gloves': 'No',
-    'face_shield': 'No',
-    'isolation_gowns': 'No',
-    'respirators': 'No'
-  }
+
   supname = request.POST['supname']
   supusername = generate_username(1)
   supemail = request.POST['supemail']
@@ -268,9 +211,8 @@ def create_supplier_account(request):
                                               last_name='supplier')
           if supplier:
             db = firebase.database()
-            db.child('suppliers').child(supplier.id).set(
-              {'Supplier_Name': supname, "city": supcity, 'Address': supaddress, 'district': supdist,
-               'available_supplies': dat})
+            db.child('Anucool_Employees').child(supplier.id).set(
+              {'Employee_Name': supname, "city": supcity, 'Address': supaddress, 'district': supdist,})
             print('accout created for supplier')
             login(request, supplier)
             messages.success(request, f'Account created for {supname} !')
@@ -303,13 +245,31 @@ def supplier_login(request):
         messages.warning(request, 'Invalid email or password ! Try again')
         return redirect('login')
 
+supplies = [
+  {
+    'product' : 'steel',
+    'price' : 215,
+
+  },
+  {
+    'product': 'aluminium',
+    'price': 150,
+
+  },
+  {
+    'product': 'copper',
+    'price': 300,
+
+  }
+]
+
 def request_supplies(request):
   db = firebase.database()
-  query = db.child("suppliers").get()
-  name = db.child('Hospitals').child(request.user.id).child('Hospital_Name').get()
-  address = db.child("Hospitals").child(request.user.id).child("Address").get()
-  city = db.child('Hospitals').child(request.user.id).child("city").get()
-  return render(request, 'hospitalauth/supplier_list.html', {'name':name, 'address':address, 'city':city, 'query':query})
+  name = db.child('Vendors').child(request.user.id).child('Vendor_Name').get()
+  address = db.child("Vendors").child(request.user.id).child("Address").get()
+  city = db.child('Vendors').child(request.user.id).child("city").get()
+
+  return render(request, 'hospitalauth/supplier_list.html', {'name':name, 'address':address, 'city':city,'supplies':supplies})
 
 
 def my_orders(request):
@@ -326,10 +286,10 @@ def my_orders(request):
 def place_order(request, id):
   db = firebase.database()
   data = {}
-  name = db.child('Hospitals').child(request.user.id).child('Hospital_Name').get()
-  address = db.child("Hospitals").child(request.user.id).child("Address").get()
-  city = db.child('Hospitals').child(request.user.id).child("city").get()
-  supplier = db.child('suppliers').child(id).get()
+  name = db.child('Vendors').child(request.user.id).child('Vendor_Name').get()
+  address = db.child("Vendors").child(request.user.id).child("Address").get()
+  city = db.child('Vendors').child(request.user.id).child("city").get()
+  supplier = db.child('Anucool_Employees').child(id).get()
   print(id)
   if request.method=='POST':
 

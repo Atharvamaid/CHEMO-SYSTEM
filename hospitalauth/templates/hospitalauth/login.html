@@ -22,8 +22,8 @@
                         <div class="col-md-10  rounded-lg  py-3">
                             <nav>
                               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Login as a Hospital</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Login as a Supplier</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Login as a Vendor</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Login as Anucool Employee</a>
 
                               </div>
                             </nav>
@@ -32,7 +32,7 @@
                                   <form class="login" method="POST">
                                     {% csrf_token %}
                                     <fieldset>
-                                        <legend class="mb-3" style="font-size : 30px; ">Login as a Hospital</legend>
+                                        <legend class="mb-3" style="font-size : 30px; ">Login as a Vendor</legend>
                                         <div class="form-group">
                                         <label for="email">Email : </label>
                                         <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" name="email" placeholder="enter email" class="form-control" required>
@@ -49,7 +49,7 @@
                                   <form class="login" method="POST" action="{% url 'supplier_login' %}">
                                     {% csrf_token %}
                                     <fieldset>
-                                        <legend class="mb-3" style="font-size : 30px; ">Login as a Supplier</legend>
+                                        <legend class="mb-3" style="font-size : 30px; ">Login as Anucool Employee</legend>
                                         <div class="form-group">
                                         <label for="supemail">Email : </label>
                                         <input type="email" id="supemail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" onblur="validateEmail(this);" name="supemail" placeholder="enter email" class="form-control" required>

@@ -21,14 +21,37 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 
+orders_received = [
+    {
+        'product': "Steel",
+        'quantity': 20,
+        'date': '21 Feb 2021',
+        'price': '50,000',
+        'shipping_status': 'recieved'
+    },
+    {
+        'product': "aluminium",
+        'quantity': 10,
+        'date': '11 Feb 2021',
+        'price': '50,000',
+        'shipping_status': 'recieved'
+    },
+    {
+        'product': "Steel",
+        'quantity': 30,
+        'date': '21 Feb 2021',
+        'price': '50,000',
+        'shipping_status': 'recieved'
+    },
+]
+
 @login_required(login_url='login')
 def dashboard(request):
     db = firebase.database()
-    name = db.child("suppliers").child(request.user.id).child('Supplier_Name').get()
-    city = db.child("suppliers").child(request.user.id).child('city').get()
-    address = db.child("suppliers").child(request.user.id).child('Address').get()
-    orders = db.child('suppliers').child(request.user.id).child('orders_recieved').get()
-    return render(request, 'supplierauth/dashboard.html', {'name':name, 'city':city, 'address':address,'orders':orders})
+    name = db.child("Anucool_Employees").child(request.user.id).child('Employee_Name').get()
+    city = db.child("Anucool_Employees").child(request.user.id).child('city').get()
+    address = db.child("Anucool_Employees").child(request.user.id).child('Address').get()
+    return render(request, 'supplierauth/dashboard.html', {'name':name, 'city':city, 'address':address,'orders_received':orders_received})
 
 
 def delete_supply(request, name):

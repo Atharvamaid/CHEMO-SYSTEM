@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Covid Health and Environment Monitoring System</title>
+    <title>Supply management and monitoring system</title>
     <style>
         body{
             font-family: 'Josefin Sans', sans-serif;
@@ -91,7 +91,7 @@
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-light" style="background-color : #f2f2f2;">
 
-        <a class="navbar-brand mr-3 " href="{% url 'Home' %}" style=""><img class="" style="max-width:100px;" src="{% static 'hospitalauth/cover12.png' %}"></a>
+        <a class="navbar-brand mr-3 " href="{% url 'Home' %}" style=""><img class="" style="max-width:160px;" src="{% static 'hospitalauth/logo.png' %}"></a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navres">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -103,17 +103,12 @@
                 <a class="nav-item nav-link mx-3" href="{% url 'dashboard' %}">Dashboard</a>
             {% else %}
                 <a class="nav-item nav-link mx-3" href="{% url 'Home' %}">Home</a>
-                <a class="nav-item nav-link mx-3" href="#functional">About</a>
             {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
-                <form class="form-inline" method="POST" action="{% url 'search' %}">
-                    {% csrf_token %}
-                    <i class="fa fa-search fa-lg" style="color : #1565c0;"></i><input class="form-control mx-2 mr-sm-2" type="text" name="q" placeholder="Search Supplier" required>
-                    <button class="btn text-white mr-3" style="background-color : #1565c0;" type="submit">Search</button>
-                </form>
-                <a class="nav-item nav-link mx-4" href="{% url 'trackcases' %}">Track Cases</a>
+
+                <a class="nav-item nav-link mx-4" href="{% url 'trackcases' %}">Track Order</a>
                 <li class="nav-item dropdown   dropleft">
                     <a class="nav-link active" id="navdrop" style="cursor : pointer;" data-toggle="dropdown"><i class="fas fa-lg fa-user-alt"></i></a>
                     <div class="dropdown-menu">
@@ -140,9 +135,8 @@
                     <h5 class="my-3 text-center"><i class="fas fa-city fa-lg"></i>  {{ city.val }}</h5>
 
                     <br>
-                    <button class="btn requestbtn btn-lg mb-2 text-white" onclick="location.href={% url 'request_supplies' %}" style="background-color : #1565c0">Request Supplies</button>
+                    <button class="btn requestbtn btn-lg mb-2 text-white" onclick="location.href={% url 'request_supplies' %}" style="background-color : #1565c0">Order Supplies</button>
                     <br>
-                    <button class="btn editbtn btn-lg mb-2" onclick="location.href={% url 'myorders' %}" style="border : 2px solid #0d47a1; color : #0d47a1">My Orders</button>
                     <br>
 
                 </div>

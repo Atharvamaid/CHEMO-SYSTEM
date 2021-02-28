@@ -18,8 +18,8 @@
 
                <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Sign-Up as Hospital</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sign-Up as Supplier</a>
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Sign-Up as Vendor</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sign-Up as Anucool Employee</a>
                   </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -27,10 +27,10 @@
                       <form class="signup pr-5" method="POST">
                     {% csrf_token %}
                     <fieldset>
-                        <legend>Create Hospital Account</legend>
+                        <legend>Create Vendor Account</legend>
                         <div class="form-group">
-                            <label for="hosname">Hospital Name : </label>
-                            <input type="text" pattern="^[A-Za-z -]+$" title="Must be a valid Hospital name"  class="form-control" id="hosname" name="hosname" placeholder="Enter hospital name" required>
+                            <label for="hosname">Vendor Name : </label>
+                            <input type="text" pattern="^[A-Za-z -]+$" title="Must be a valid Hospital name"  class="form-control" id="hosname" name="hosname" placeholder="Enter vendor name" required>
                         </div>
                         <div class="form-group">
                             <label for="address">Address : </label>
@@ -69,10 +69,10 @@
                       <form class="signup pr-5" method="POST" action="{% url 'supplier_signup' %}">
                     {% csrf_token %}
                     <fieldset>
-                        <legend>Create Supplier Account</legend>
+                        <legend>Create Anucool Account</legend>
                         <div class="form-group">
-                            <label for="supname">Organization Name : </label>
-                            <input type="text" class="form-control" title="Must be a valid name" pattern="^[A-Za-z -]+$" id="supname" name="supname" placeholder="Enter organization name" required>
+                            <label for="supname">Name : </label>
+                            <input type="text" class="form-control" title="Must be a valid name" pattern="^[A-Za-z -]+$" id="supname" name="supname" placeholder="Enter  name" required>
                         </div>
                         <div class="form-group">
                             <label for="supaddress">Address : </label>

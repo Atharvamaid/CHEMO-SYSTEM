@@ -3,31 +3,27 @@
 {% block content %}
 
                     <div class="container mt-4 pt-2">
-                        <h4>Suppliers Available </h4>
+                        <h4>Our Top Materials</h4>
                             <br>
+                        <div class="row">
+                            {% for i in supplies %}
 
-                            {% for i in query.each %}
+                                    <div class="col-md-4 bg-light p-3" >
+                                        <div class="card" style="height:400px; display:flex; flex-direction:column; align-items:space-between;">
+                                          <img class="card-img-top"  src="{% static 'hospitalauth/' %}{{ i.product }}.JPG" alt="Card image">
+                                          <div class="card-body">
+                                            <h4 class="card-title">{{ i.product }}</h4>
+                                            <p class="card-text">Price - ₹ {{ i.price }} / KG</p>
+                                            <a href="#" class="btn btn-primary">See details</a>
+                                          </div>
+                                        </div>
 
-                                    <div class="card my-3 bg-light p-3" style="display:flex; flex-direction: row; justify-content: space-between;">
-                                        <div class="">
-                                            <h5>{{ i.val.Supplier_Name }}</h5>
-                                        <i>{{ i.val.Address }}, {{ i.val.city }}</i>
-                                            <div class="mt-3">
-                                                <span>Available supplies - </span>
-                                                {% for j,k in i.val.available_supplies.items %}
-                                                    {% if k == 'yes' %}
-                                                        <span>{{ j }} | </span>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <a class="btn text-white requestbtn mx-2" href="{% url 'place_order' i.key %}"  style="background-color : #1565c0;">Request</a>
-                                            <a href="{% url 'chat' i.val.Supplier_Name|slugify %}" class="btn btn-light border ml-2" >contact</a>
-                                        </div>
                                     </div>
 
                             {% endfor %}
+                        </div>
+
+
                     </div>
 
 {% endblock  %}

@@ -10,41 +10,21 @@
                     {% endfor %}
         {% endif %}
         <h2 class="ml-3" > Orders Recieved </h2>
-        {% if orders.each %}
-            {% for i in orders.each %}
-            <div class="container-fluid">
-                <div class=" p-3 my-3 border bg-light rounded ">
-                <h5>Recieved from - {{ i.key }}</h5>
-                <div class="row">
-                    {% for j,k in i.val.items %}
-                        {% if j != 'order_status' %}
-                            <div class="col-md-3">
-                            <div class="card bg-light my-2">
-                                <div class="card-body">
+        <div class="container">
+            {% for i in orders_received %}
+                    <div class="card mr-3 my-3">
+                          <div class="card-body">
+                            <h4 class="card-title">Product - {{ i.product }}</h4>
+                            <p class="card-text">Quantity (in tonnes) - {{ i.quantity }}</p>
+                            <p class="card-text">Date - {{ i.date }}</p>
+                            <p class="card-text">Price - {{ i.price }}</p>
+                              <p class="card-text">Order Status - {{ i.shipping_status }}</p>
 
-                                    <img src="{% static 'hospitalauth/' %}{{j}}.JPG" style="max-width:100%" class="card-img-top">
-                                    <br>
-                                    <br>
-                                    <h5 class="card-title text-center">{{ j }} - {{ k }}</h5>
-
-
-                                </div>
-                            </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                 <div class="row mt-2" style="display:flex; justify-content:flex-end;">
-                        <a href="{% url 'confirm_order' i.key|slugify %}" class="btn requestbtn text-white mx-2" style="background-color : #1565c0">Confirm Order</a>
-                        <a href="{% url 'contact' i.key|slugify %}" class="btn bg-light border ml-2" >Contact</a>
-                 </div>
-
-            </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-center">No Orders Recieved ! Add Supplies to your dashboard</p>
-        {% endif %}
+                              <button class="btn btn-primary">Confirm Order</button>
+                          </div>
+                        </div>
+                 {% endfor %}
+        </div>
 
 
     </div>
